@@ -1,0 +1,77 @@
+﻿@page "/periodic-product-supply-report"
+@layout MainLayout
+@inherits IyaElepoApp.Pages.PeriodicProductSupplyReportComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using IyaElepoApp.Models.ConData
+@using Microsoft.AspNetCore.Identity;
+@using IyaElepoApp.Models
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="PeriodicProductSupplyReport">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-3">
+        <RadzenLabel Component="dtStartDate" style="width: 100%" Text="Start Date:">
+        </RadzenLabel>
+      </div>
+      <div class="col-md-9">
+        <RadzenDatePicker @bind-Value="@startDate" Name="DtStartDate">
+        </RadzenDatePicker>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <RadzenLabel Component="dtEndDate" style="width: 100%" Text="End Date:">
+        </RadzenLabel>
+      </div>
+      <div class="col-md-9">
+        <RadzenDatePicker @bind-Value="@endDate" Name="DtEndDate">
+        </RadzenDatePicker>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <RadzenButton Text="Fetch Report" Click="@BtnDisplayReportClick">
+        </RadzenButton>
+      </div>
+      <div class="col-md-9">
+        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Text="Reset">
+        </RadzenButton>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenSplitButton Icon="get_app" style="margin-bottom: 10px; margin-left: 0px" Text="Export" Click="@Splitbutton0Click">
+          <ChildContent>
+            <RadzenSplitButtonItem Text="Excel" Value="xlsx">
+            </RadzenSplitButtonItem>
+            <RadzenSplitButtonItem Text="CSV" Value="csv">
+            </RadzenSplitButtonItem>
+          </ChildContent>
+        </RadzenSplitButton>
+        <RadzenTextBox Placeholder="Search ..." style="display: block; margin-bottom: 10px; width: 100%" Name="Textbox0" @oninput="@(async(args) => {search = $"{args.Value}";await grid0.GoToPage(0);await Load();})">
+        </RadzenTextBox>
+        <RadzenDataGrid @ref="grid0" AllowFiltering="true" AllowPaging="true" AllowSorting="true" Data="@getProductSupplyReportViewsResult" FilterMode="Radzen.FilterMode.Advanced" TItem="IyaElepoApp.Models.ConData.ProductSupplyReportView">
+          <Columns>
+            <RadzenDataGridColumn TItem="IyaElepoApp.Models.ConData.ProductSupplyReportView" Property="SupplyID" Title="Supply ID">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="IyaElepoApp.Models.ConData.ProductSupplyReportView" FormatString="{0:d}" Property="SupplyDate" Title="Supply Date">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="IyaElepoApp.Models.ConData.ProductSupplyReportView" Property="Supplier" Title="Supplier">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="IyaElepoApp.Models.ConData.ProductSupplyReportView" Property="Product" Title="Product">
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="IyaElepoApp.Models.ConData.ProductSupplyReportView" Property="QuantityInLitres" Title="Quantity In Litres">
+            </RadzenDataGridColumn>
+          </Columns>
+        </RadzenDataGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

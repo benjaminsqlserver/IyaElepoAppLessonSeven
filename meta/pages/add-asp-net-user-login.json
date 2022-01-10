@@ -1,0 +1,307 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "type": "template-form",
+                  "name": "form0",
+                  "components": [
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Login Provider",
+                              "component": "LoginProvider",
+                              "name": "LoginProviderLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 450,
+                              "type": "textbox",
+                              "name": "LoginProvider",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${aspnetuserlogin.LoginProvider}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "LoginProviderRequiredValidator",
+                              "component": "LoginProvider",
+                              "text": "LoginProvider is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Provider Key",
+                              "component": "ProviderKey",
+                              "name": "ProviderKeyLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 450,
+                              "type": "textbox",
+                              "name": "ProviderKey",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${aspnetuserlogin.ProviderKey}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "ProviderKeyRequiredValidator",
+                              "component": "ProviderKey",
+                              "text": "ProviderKey is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Provider Display Name",
+                              "component": "ProviderDisplayName",
+                              "name": "ProviderDisplayNameLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "type": "textbox",
+                              "name": "ProviderDisplayName",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${aspnetuserlogin.ProviderDisplayName}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Asp Net User",
+                              "component": "UserId",
+                              "name": "UserIdLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getAspNetUsersResult}",
+                              "textProperty": "ConcurrencyStamp",
+                              "valueProperty": "Id",
+                              "placeholder": "Choose AspNetUser",
+                              "valueType": "string",
+                              "type": "dropdown",
+                              "name": "UserId",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${aspnetuserlogin.UserId}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "UserIdRequiredValidator",
+                              "component": "UserId",
+                              "text": "UserId is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "type": "button",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "buttonStyle": "primary"
+                            },
+                            {
+                              "type": "button",
+                              "buttonStyle": "light",
+                              "style": {
+                                "marginLeft": "1rem"
+                              },
+                              "text": "Cancel",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to create new AspNetUserLogin!",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "ConData.createAspNetUserLogin",
+                        "parameters": [
+                          {
+                            "name": "AspNetUserLogin",
+                            "value": "${aspnetuserlogin}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "close-popup",
+                            "result": "${aspnetuserlogin}"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "data": "${aspnetuserlogin}",
+                  "visible": "${aspnetuserlogin != null}",
+                  "itemType": "IyaElepoApp.Models.ConData.AspNetUserLogin"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "ConData.getAspNetUsers",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getAspNetUsersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<IyaElepoApp.Models.ConData.AspNetUser>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "aspnetuserlogin",
+        "type": "set",
+        "value": "new IyaElepoApp.Models.ConData.AspNetUserLogin(){}",
+        "valueType": "IyaElepoApp.Models.ConData.AspNetUserLogin"
+      }
+    ]
+  },
+  "name": "Add Asp Net User Login",
+  "access": [
+    "Authenticated"
+  ],
+  "layout": "Main"
+}

@@ -1,0 +1,326 @@
+{
+  "access": "Authenticated",
+  "components": [
+    {
+      "components": [
+        {
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "PeriodicProductSupplyReport",
+          "type": "heading"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-3",
+              "components": [
+                {
+                  "component": "dtStartDate",
+                  "name": "CustomerNameLabel",
+                  "style": {
+                    "width": "100%"
+                  },
+                  "text": "Start Date:",
+                  "type": "label"
+                }
+              ],
+              "name": "col1",
+              "type": "col"
+            },
+            {
+              "class": "col-md-9",
+              "components": [
+                {
+                  "name": "dtStartDate",
+                  "type": "datepicker",
+                  "value": "${startDate}"
+                }
+              ],
+              "name": "col2",
+              "type": "col"
+            }
+          ],
+          "type": "row"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-3",
+              "components": [
+                {
+                  "component": "dtEndDate",
+                  "name": "label0",
+                  "style": {
+                    "width": "100%"
+                  },
+                  "text": "End Date:",
+                  "type": "label"
+                }
+              ],
+              "name": "col3",
+              "type": "col"
+            },
+            {
+              "class": "col-md-9",
+              "components": [
+                {
+                  "name": "dtEndDate",
+                  "type": "datepicker",
+                  "value": "${endDate}"
+                }
+              ],
+              "name": "col4",
+              "type": "col"
+            }
+          ],
+          "name": "row1",
+          "type": "row"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-3",
+              "components": [
+                {
+                  "events": {
+                    "click": [
+                      {
+                        "code": "await FetchPeriodicProductSupplyReportAsync();",
+                        "type": "execute"
+                      }
+                    ]
+                  },
+                  "name": "btnDisplayReport",
+                  "text": "Fetch Report",
+                  "type": "button"
+                }
+              ],
+              "name": "col5",
+              "type": "col"
+            },
+            {
+              "class": "col-md-9",
+              "components": [
+                {
+                  "buttonStyle": "secondary",
+                  "name": "button1",
+                  "text": "Reset",
+                  "type": "button"
+                }
+              ],
+              "name": "col6",
+              "type": "col"
+            }
+          ],
+          "name": "row2",
+          "type": "row"
+        },
+        {
+          "components": [
+            {
+              "class": "col-md-12",
+              "components": [
+                {
+                  "events": {
+                    "click": [
+                      {
+                        "condition": "${event?.Value == \"csv\"}",
+                        "fileName": "Periodic Product Supply Report",
+                        "name": "ConData.getProductSupplyReportViews",
+                        "parameters": [
+                          {
+                            "name": "$filter",
+                            "value": "${(string.IsNullOrEmpty(grid0.Query.Filter)? \"true\" : grid0.Query.Filter)}"
+                          },
+                          {
+                            "name": "$orderby",
+                            "value": "${grid0.Query.OrderBy}"
+                          },
+                          {
+                            "name": "$expand",
+                            "value": ""
+                          },
+                          {
+                            "name": "$select",
+                            "value": "SupplyID,SupplyDate,Supplier,Product,QuantityInLitres"
+                          }
+                        ],
+                        "type": "export"
+                      },
+                      {
+                        "condition": "${event == null || event.Value == \"xlsx\"}",
+                        "fileName": "Periodic Product Supply Report",
+                        "format": "xlsx",
+                        "name": "ConData.getProductSupplyReportViews",
+                        "parameters": [
+                          {
+                            "name": "$filter",
+                            "value": "${(string.IsNullOrEmpty(grid0.Query.Filter)? \"true\" : grid0.Query.Filter)}"
+                          },
+                          {
+                            "name": "$orderby",
+                            "value": "${grid0.Query.OrderBy}"
+                          },
+                          {
+                            "name": "$expand",
+                            "value": ""
+                          },
+                          {
+                            "name": "$select",
+                            "value": "SupplyID,SupplyDate,Supplier,Product,QuantityInLitres"
+                          }
+                        ],
+                        "type": "export"
+                      }
+                    ]
+                  },
+                  "icon": "get_app",
+                  "items": [
+                    {
+                      "icon": "",
+                      "text": "Excel",
+                      "value": "xlsx"
+                    },
+                    {
+                      "icon": "",
+                      "text": "CSV",
+                      "value": "csv"
+                    }
+                  ],
+                  "name": "splitbutton0",
+                  "style": {
+                    "marginBottom": "10px",
+                    "marginLeft": "0px"
+                  },
+                  "text": "Export",
+                  "type": "splitbutton"
+                },
+                {
+                  "attributes": [
+                    {
+                      "name": "@oninput",
+                      "value": "@(async(args) => {search = $\"{args.Value}\";await grid0.GoToPage(0);await Load();})"
+                    }
+                  ],
+                  "name": "textbox0",
+                  "placeholder": "Search ...",
+                  "style": {
+                    "display": "block",
+                    "marginBottom": "10px",
+                    "width": "100%"
+                  },
+                  "type": "textbox",
+                  "value": ""
+                },
+                {
+                  "allowFiltering": true,
+                  "allowPaging": true,
+                  "allowSorting": true,
+                  "columns": [
+                    {
+                      "property": "SupplyID",
+                      "title": "Supply ID"
+                    },
+                    {
+                      "formatString": "{0:d}",
+                      "property": "SupplyDate",
+                      "title": "Supply Date"
+                    },
+                    {
+                      "property": "Supplier",
+                      "title": "Supplier"
+                    },
+                    {
+                      "property": "Product",
+                      "title": "Product"
+                    },
+                    {
+                      "property": "QuantityInLitres",
+                      "title": "Quantity In Litres"
+                    }
+                  ],
+                  "data": "${getProductSupplyReportViewsResult}",
+                  "events": {
+                    "loadData": []
+                  },
+                  "filterMode": "advanced",
+                  "itemType": "IyaElepoApp.Models.ConData.ProductSupplyReportView",
+                  "name": "grid0",
+                  "title": "",
+                  "type": "datagrid"
+                }
+              ],
+              "name": "col0",
+              "type": "col"
+            }
+          ],
+          "name": "row0",
+          "type": "row"
+        }
+      ],
+      "container": "main",
+      "type": "content"
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "condition": "string.IsNullOrEmpty(search)",
+        "name": "search",
+        "type": "set",
+        "value": "\"\"",
+        "valueType": "string"
+      },
+      {
+        "name": "ConData.getProductSupplyReportViews",
+        "parameters": [
+          {
+            "name": "$filter",
+            "operator": "or",
+            "value": [
+              {
+                "operation": "contains",
+                "property": "Supplier",
+                "type": "string",
+                "value": "\"${search}\""
+              },
+              {
+                "operation": "contains",
+                "property": "Product",
+                "type": "string",
+                "value": "\"${search}\""
+              }
+            ]
+          }
+        ],
+        "then": [
+          {
+            "name": "getProductSupplyReportViewsResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<IyaElepoApp.Models.ConData.ProductSupplyReportView>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "startDate",
+        "type": "set",
+        "value": "new System.DateTime(1970,1,1)",
+        "valueType": "DateTime"
+      },
+      {
+        "name": "endDate",
+        "type": "set",
+        "value": "new System.DateTime(1970,1,1)",
+        "valueType": "DateTime"
+      },
+      {
+        "code": "await UpdateInitialReportStartAndEndDatesAsync();",
+        "type": "execute"
+      }
+    ]
+  },
+  "layout": "Main",
+  "name": "PeriodicProductSupplyReport"
+}

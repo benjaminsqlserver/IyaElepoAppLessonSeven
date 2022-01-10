@@ -1,0 +1,178 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "type": "template-form",
+                  "name": "form0",
+                  "components": [
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Value",
+                              "component": "Value",
+                              "name": "ValueLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "type": "textbox",
+                              "name": "Value",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${aspnetusertoken.Value}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "type": "button",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "buttonStyle": "primary"
+                            },
+                            {
+                              "type": "button",
+                              "buttonStyle": "light",
+                              "style": {
+                                "marginLeft": "1rem"
+                              },
+                              "text": "Cancel",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to update AspNetUserToken",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "ConData.updateAspNetUserToken",
+                        "parameters": [
+                          {
+                            "name": "UserId",
+                            "value": "${parameters.UserId}"
+                          },
+                          {
+                            "name": "LoginProvider",
+                            "value": "${parameters.LoginProvider}"
+                          },
+                          {
+                            "name": "Name",
+                            "value": "${parameters.Name}"
+                          },
+                          {
+                            "name": "AspNetUserToken",
+                            "value": "${aspnetusertoken}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "close-popup",
+                            "result": "${aspnetusertoken}",
+                            "condition": ""
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "itemType": "IyaElepoApp.Models.ConData.AspNetUserToken",
+                  "data": "${aspnetusertoken}",
+                  "visible": "${aspnetusertoken != null}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "ConData.getAspNetUserTokenByUserIdAndLoginProviderAndName",
+        "parameters": [
+          {
+            "name": "UserId",
+            "value": "${parameters.UserId}"
+          },
+          {
+            "name": "LoginProvider",
+            "value": "${parameters.LoginProvider}"
+          },
+          {
+            "name": "Name",
+            "value": "${parameters.Name}"
+          }
+        ],
+        "then": [
+          {
+            "name": "aspnetusertoken",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IyaElepoApp.Models.ConData.AspNetUserToken"
+          }
+        ],
+        "error": [],
+        "type": "invoke"
+      }
+    ]
+  },
+  "name": "Edit Asp Net User Token",
+  "access": [
+    "Authenticated"
+  ],
+  "layout": "Main"
+}

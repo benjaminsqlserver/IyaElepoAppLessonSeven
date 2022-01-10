@@ -1,0 +1,236 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "type": "template-form",
+                  "name": "form0",
+                  "components": [
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Asp Net User",
+                              "component": "UserId",
+                              "name": "UserIdLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getAspNetUsersResult}",
+                              "textProperty": "ConcurrencyStamp",
+                              "valueProperty": "Id",
+                              "placeholder": "Choose AspNetUser",
+                              "valueType": "string",
+                              "type": "dropdown",
+                              "name": "UserId",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${aspnetuserrole.UserId}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "UserIdRequiredValidator",
+                              "component": "UserId",
+                              "text": "UserId is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Asp Net Role",
+                              "component": "RoleId",
+                              "name": "RoleIdLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getAspNetRolesResult}",
+                              "textProperty": "ConcurrencyStamp",
+                              "valueProperty": "Id",
+                              "placeholder": "Choose AspNetRole",
+                              "valueType": "string",
+                              "type": "dropdown",
+                              "name": "RoleId",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${aspnetuserrole.RoleId}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "RoleIdRequiredValidator",
+                              "component": "RoleId",
+                              "text": "RoleId is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "type": "button",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "buttonStyle": "primary"
+                            },
+                            {
+                              "type": "button",
+                              "buttonStyle": "light",
+                              "style": {
+                                "marginLeft": "1rem"
+                              },
+                              "text": "Cancel",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to create new AspNetUserRole!",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "ConData.createAspNetUserRole",
+                        "parameters": [
+                          {
+                            "name": "AspNetUserRole",
+                            "value": "${aspnetuserrole}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "close-popup",
+                            "result": "${aspnetuserrole}"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "data": "${aspnetuserrole}",
+                  "visible": "${aspnetuserrole != null}",
+                  "itemType": "IyaElepoApp.Models.ConData.AspNetUserRole"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "ConData.getAspNetUsers",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getAspNetUsersResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<IyaElepoApp.Models.ConData.AspNetUser>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "ConData.getAspNetRoles",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getAspNetRolesResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<IyaElepoApp.Models.ConData.AspNetRole>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "aspnetuserrole",
+        "type": "set",
+        "value": "new IyaElepoApp.Models.ConData.AspNetUserRole(){}",
+        "valueType": "IyaElepoApp.Models.ConData.AspNetUserRole"
+      }
+    ]
+  },
+  "name": "Add Asp Net User Role",
+  "access": [
+    "Authenticated"
+  ],
+  "layout": "Main"
+}
